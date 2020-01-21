@@ -6,7 +6,7 @@ providers = {
   }
 
 site_name      = "bundle"
-site_namespace = "dev.example.com"
+namespace = "dev.example.com"
 
 url = "${var.url}"
 certificate_arn = "${var.certificate_arn}"
@@ -18,6 +18,14 @@ site_config_values = {
 
 cors_allowed_origins = ["*"]
 cors_allowed_headers = [""]
+
+module_tags     = "${map("Environment", "dev")}"
+s3_tags         = "${map("s3", "true")}"
+cloudfront_tags = "${map("cloudfront", "true")}"
+
+wait_for_deployment = false
+
+comment = "Example static website cloudfront distribution"
 
 }
 

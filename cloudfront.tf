@@ -8,6 +8,7 @@ resource "aws_cloudfront_distribution" "cdn" {
   wait_for_deployment = "${var.wait_for_deployment}"
 
   enabled             = true
+  comment             = "${var.comment}"
   default_root_object = "${var.index_document_default}"
 
   default_cache_behavior {
@@ -50,4 +51,6 @@ resource "aws_cloudfront_distribution" "cdn" {
     bucket = "${aws_s3_bucket.static_website_log_bucket.bucket_domain_name}"
     prefix = "cloudfront/"
   }
+
+  tags = "${merge(map("Name", format("%s-cdn", var.site_name)), map("Site Name", var.site_name), var.cloudfront_tags, var.module_tags)}"
 }

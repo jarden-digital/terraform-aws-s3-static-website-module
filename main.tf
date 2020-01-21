@@ -1,6 +1,6 @@
 locals {
-  bucket_name         = "${format("%s.%s", var.site_name, var.site_namespace)}"
-  logging_bucket_name = "${format("%s-%s", local.bucket_name, "site-logs")}"
+  bucket_name         = "${format("%s.%s", var.site_name, var.namespace)}"
+  logging_bucket_name = "${format("%s-%s.%s", var.site_name, "site-logs", var.namespace)}"
 }
 
 resource "aws_s3_bucket" "static_website" {
@@ -22,23 +22,19 @@ resource "aws_s3_bucket" "static_website" {
     max_age_seconds = "${var.cors_max_age_seconds}"
   }
 
-  versioning {
-    enabled = "${var.enable_bucket_object_versioning}"
-  }
-
   logging {
     target_bucket = "${aws_s3_bucket.static_website_log_bucket.id}"
     target_prefix = "${var.site_name}/"
   }
+
+  tags = "${merge(map("Name", local.bucket_name), map("Site Name", var.site_name), var.s3_tags, var.module_tags)}"
 }
 
 resource "aws_s3_bucket" "static_website_log_bucket" {
   bucket = "${local.logging_bucket_name}"
   acl    = "log-delivery-write"
 
-   versioning {
-    enabled = "${var.enable_bucket_object_versioning}"
-  }
+  tags = "${merge(map("Name", local.logging_bucket_name), map("Site Name", var.site_name), var.s3_tags, var.module_tags)}"
 }
 
 resource "aws_s3_bucket_object" "config_file" {
@@ -46,4 +42,6 @@ resource "aws_s3_bucket_object" "config_file" {
   bucket  = "${aws_s3_bucket.static_website.id}"
   content = "${jsonencode(var.site_config_values)}"
   acl     = "public-read"
+
+  tags = "${merge(map("Site Name", var.site_name), var.module_tags)}"
 }

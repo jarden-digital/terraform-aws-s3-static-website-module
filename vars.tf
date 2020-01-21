@@ -2,7 +2,7 @@ variable "site_name" {
   description = "The name of the static website or js bundle to be hosted by the S3 bucket. This will be the bucket name prefix."
 }
 
-variable "site_namespace" {
+variable "namespace" {
   description = "A namespace that is appended to the `site_name` variable. This minimises S3 bucket naming collisions."
 }
 
@@ -41,11 +41,6 @@ variable "cors_expose_headers" {
 variable "cors_max_age_seconds" {
   description = "Specifies time in seconds that browser can cache the response for a preflight request. Defaults to 1 hour."
   default     = 3600
-}
-
-variable "enable_bucket_object_versioning" {
-  description = "Determines if the bucket should version objects. Default is `false`."
-  default     = false
 }
 
 variable "site_config_values" {
@@ -90,6 +85,12 @@ variable "price_class" {
   default     = "PriceClass_All"
 }
 
+variable "comment" {
+    description = "A comment for the Cloudfront distribution resource"
+    default     = ""
+}
+
+
 variable "wait_for_deployment" {
   description = "If enabled, the resource will wait for the distribution status to change from `InProgress` to `Deployed`. Setting this to `false` will skip the process. Default: `true`."
   default     = true
@@ -113,4 +114,23 @@ variable "create_custom_route53_record" {
 variable "zone_id" {
   description = "The zone id of the hosted zone to create the alias record in. Used only when `create_custom_route53_record` is set to `true`. "
   default     = ""
+}
+
+variable "s3_tags" {
+  description = "Additional tags to be added to all s3 resources"
+  type        = "map"
+  default     = {}
+}
+
+variable "cloudfront_tags" {
+  description = "Additional tags to be added to all cloudfront resources"
+  type        = "map"
+  default     = {}
+}
+
+
+variable "module_tags" {
+  description = "Additional tags that are added to all resources in this module."
+  type        = "map"
+  default     = {}
 }
