@@ -86,16 +86,14 @@ variable "price_class" {
 }
 
 variable "comment" {
-    description = "A comment for the Cloudfront distribution resource"
-    default     = ""
+  description = "A comment for the Cloudfront distribution resource"
+  default     = ""
 }
-
 
 variable "wait_for_deployment" {
   description = "If enabled, the resource will wait for the distribution status to change from `InProgress` to `Deployed`. Setting this to `false` will skip the process. Default: `true`."
   default     = true
 }
-
 
 variable "enable_cdn_compression" {
   description = "Select whether you want CloudFront to automatically compress content for web requests that include Accept-Encoding: gzip in the request header. CloudFront compresses files of certain types for both Amazon S3 and custom origins. Default is `true`."
@@ -127,7 +125,6 @@ variable "cloudfront_tags" {
   type        = "map"
   default     = {}
 }
-
 
 variable "module_tags" {
   description = "Additional tags that are added to all resources in this module."
