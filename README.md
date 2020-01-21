@@ -9,6 +9,8 @@ Cloudfront only supports binding to certificates in the `us-east-1` region. A ce
 The module has been designed to support a Continuous Development/Deployment pattern. A config bucket object resource allows for the abstraction
 of configuration elements from the bundle being served, allowing the bundle to become an immutable artifact. Configuration becomes a runtime concern, as opposed to a build time concern.
 
+This module also has an additional and separate artifactory module - more information on what this module provides can be found [here](artifactory/README.md)
+
 ### Implementation patterns
 
 This module is used to provide the infrastructure for both serving static content in a way that creates pipeline building blocks that allows users to easily construct a pipeline to provide continuous delivery patterns. An example pipeline is shown below:
