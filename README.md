@@ -9,7 +9,7 @@ Cloudfront only supports binding to certificates in the `us-east-1` region. A ce
 The module has been designed to support a Continuous Development/Deployment pattern. A config bucket object resource allows for the abstraction
 of configuration elements from the bundle being served, allowing the bundle to become an immutable artifact. Configuration becomes a runtime concern, as opposed to a build time concern.
 
-This module also has an additional and separate artifactory module - more information on what this module provides can be found [here](artifactory/README.md)
+This module also has an additional and separate artifactory module - more information on what this module provides can be found in the [Artifactory README](artifactory/README.md)
 
 ### Implementation patterns
 
@@ -21,8 +21,11 @@ Build/Test/Package    ->    Copy to Artifactory (S3 Bucket)    ->    Copy to Mod
 
 This module includes an Architectural Decision Register (ADR's) as represented by [the first adr](docs/adr/0001-record-architecture-decisions.md). All ADR's are listed [here](docs/adr/toc.md).
 
+## Terraform version support
+This repo supports version 0.11 and 0.12 of Terraform. The implementation pattern is outlined in the following ADR [4. Dual support for Terraform version 0.11 and 0.12](docs/adr/0004-dual-support-for-terraform-version-0-11-and-0-12.md)
+
 ## Contributions
-All contributions are accepted, details on how to contribute can be found in [contrib.md](contrib.md)
+All contributions are accepted, details on how to contribute can be found in [contrib.md](contrib.md).
 
 ## Inputs
 
