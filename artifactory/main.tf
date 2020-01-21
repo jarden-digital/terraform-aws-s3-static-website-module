@@ -1,6 +1,7 @@
 locals {
-  bucket_name         = "${format("%s-%s.%s", var.site_name, "artifactory", var.namespace)}"
+  bucket_name = "${format("%s-%s.%s", var.site_name, "artifactory", var.namespace)}"
 }
+
 resource "aws_s3_bucket" "artifactory" {
   bucket = "${local.bucket_name}"
   acl    = "private"

@@ -15,5 +15,3 @@ variable "tags" {
   description = "A map of additional tags to add to the artifactory resource. A name tag with the value `<site_name>-artifactory.<namespace>` is added by default."
   default     = {}
 }
-
-
