@@ -3,7 +3,7 @@ data "aws_iam_policy_document" "s3_website_public_get" {
     sid    = "PublicReadGetObject"
     effect = "Allow"
 
-    principals = {
+    principals {
       type        = "*"
       identifiers = ["*"]
     }
