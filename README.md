@@ -6,6 +6,15 @@ a route53 entry to alias the Cloudfront with a custom domain.
 The module requires a TLS certificate to be provisioned in the same AWS account in which the resources are being installed in.
 Cloudfront only supports binding to certificates in the `us-east-1` region. A certificate arn is a required parameter for this module.
 
+The module has been designed to support a Continuous Development/Deployment pattern. A config bucket object resource allows for the abstraction
+of configuration elements from the bundle being served, allowing the bundle to become an immutable artifact. Configuration becomes a runtime concern, as opposed to a build time concern.
+
+### Implementation patterns
+
+This module is used to provide the infrastructure for both serving static content in a way that creates pipeline building blocks that allows users to easily construct a pipeline to provide continuous delivery patterns. An example pipeline is shown below:
+
+Build/Test/Package    ->    Copy to Artifactory (S3 Bucket)    ->    Copy to Module implementation (e.g. UAT)    ->    Promote to Module implementation (e.g. PROD)
+
 ## ADR's
 
 This module includes an Architectural Decision Register (ADR's) as represented by [the first adr](docs/adr/0001-record-architecture-decisions.md). All ADR's are listed [here](docs/adr/toc.md).
