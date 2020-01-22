@@ -8,10 +8,12 @@ variable "namespace" {
 
 variable "force_destroy" {
   description = "Controls if all objects in a bucket should be deleted when destroying the bucket resource. If set to `false`, the bucket resource cannot be destroyed until all objects are deleted. Defaults to `true`."
+  type        = bool
   default     = true
 }
 
 variable "tags" {
   description = "A map of additional tags to add to the artifactory resource. A name tag with the value `<site_name>-artifactory.<namespace>` is added by default."
+  type        = map(any)
   default     = {}
 }

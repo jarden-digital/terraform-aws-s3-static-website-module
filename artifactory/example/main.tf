@@ -2,7 +2,7 @@ module "static_website_artifactory_example" {
   source = "../"
 
   providers = {
-    aws = "aws"
+    aws = aws
   }
 
   site_name = "bundle"
@@ -10,7 +10,7 @@ module "static_website_artifactory_example" {
 }
 
 provider "aws" {
-  region = "${var.aws_region}"
+  region = var.aws_region
 }
 
 variable "aws_region" {
@@ -18,5 +18,5 @@ variable "aws_region" {
 }
 
 output "bucket_name" {
-  value = "${module.static_website_artifactory_example.bucket_name}"
+  value = module.static_website_artifactory_example.bucket_name
 }
