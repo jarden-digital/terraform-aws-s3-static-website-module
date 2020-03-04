@@ -11,6 +11,17 @@ resource "aws_cloudfront_distribution" "cdn" {
   comment             = var.comment
   default_root_object = var.index_document_default
 
+
+  dynamic "custom_error_response" {
+    for_each = var.cloudfront_custom_errors
+    content {
+      error_caching_min_ttl = custom_error_response.value["error_caching_min_ttl"]
+      error_code            = custom_error_response.value["error_code"]
+      response_code         = custom_error_response.value["response_code"]
+      response_page_path    = custom_error_response.value["response_page_path"]
+    }
+  }
+
   default_cache_behavior {
     allowed_methods  = var.cloudfront_allowed_methods
     cached_methods   = var.cloudfront_cached_methods
