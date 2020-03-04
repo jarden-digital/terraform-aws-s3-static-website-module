@@ -56,13 +56,13 @@ variable "url" {
 
 variable cloudfront_custom_errors {
   description = "A map of custom error settings for the CloudFront Distribution"
-  type        = list(object({
+  type = list(object({
     error_caching_min_ttl = number
     error_code            = number
     response_code         = number
     response_page_path    = string
   }))
-  default     = []
+  default = []
 }
 variable "cloudfront_allowed_methods" {
   description = " Controls which HTTP methods CloudFront processes and forwards to your Amazon S3 bucket or your custom origin."

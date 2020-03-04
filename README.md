@@ -11,6 +11,22 @@ of configuration elements from the bundle being served, allowing the bundle to b
 
 This module also has an additional and separate artifactory module - more information on what this module provides can be found in the [Artifactory README](artifactory/README.md)
 
+### React client side routing support
+
+In order to support React's client side routing implementation, you'll need to provide the following value for the `cloudfront_custom_errors` variable as follows
+
+```
+cloudfront_custom_errors = [
+  {
+    error_caching_min_ttl = 300
+    error_code            = 404
+    response_code         = 200
+    response_page_path    = "/index.html"
+}]
+```
+
+The `response_page_path` (`/index.html` in this example) should match your static html file that invokes the React bundle. Further explanations for the settings can be found at https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html#custom-error-response-arguments.
+
 ### Implementation patterns
 
 This module is used to provide the infrastructure for both serving static content in a way that creates pipeline building blocks that allows users to easily construct a pipeline to provide continuous delivery patterns. An example pipeline is shown below:
@@ -26,6 +42,8 @@ This repo supports version 0.11 and 0.12 of Terraform. The implementation patter
 
 ## Contributions
 All contributions are accepted, details on how to contribute can be found in [contrib.md](contrib.md).
+
+---
 
 ## Providers
 
@@ -45,6 +63,7 @@ All contributions are accepted, details on how to contribute can be found in [co
 | url | The custom URL to access the site. Must match the certificate name to provide a valid TLS connection. | `any` | n/a | yes |
 | cloudfront\_allowed\_methods | Controls which HTTP methods CloudFront processes and forwards to your Amazon S3 bucket or your custom origin. | `list(string)` | <pre>[<br>  "GET",<br>  "HEAD",<br>  "OPTIONS"<br>]<br></pre> | no |
 | cloudfront\_cached\_methods | Controls whether CloudFront caches the response to requests using the specified HTTP methods. | `list(string)` | <pre>[<br>  "GET",<br>  "HEAD"<br>]<br></pre> | no |
+| cloudfront\_custom\_errors | A map of custom error settings for the CloudFront Distribution | <pre>list(object({<br>error_caching_min_ttl = number<br>error_code = number<br>response_code = number<br>response_page_path = string<br>}))<br></pre> | `[]` | no |
 | cloudfront\_tags | Additional tags to be added to all cloudfront resources. | `map(any)` | `{}` | no |
 | comment | A comment for the Cloudfront distribution resource | `string` | `""` | no |
 | cors\_allowed\_methods | Specifies which methods are allowed. Can be GET, PUT, POST, DELETE or HEAD. Defaults to `GET`, `PUT`, `POST`. | `list(string)` | <pre>[<br>  "GET",<br>  "PUT",<br>  "POST"<br>]<br></pre> | no |
