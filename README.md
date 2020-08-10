@@ -63,7 +63,7 @@ All contributions are accepted, details on how to contribute can be found in [co
 | url | The custom URL to access the site. Must match the certificate name to provide a valid TLS connection. | `any` | n/a | yes |
 | cloudfront\_allowed\_methods | Controls which HTTP methods CloudFront processes and forwards to your Amazon S3 bucket or your custom origin. | `list(string)` | <pre>[<br>  "GET",<br>  "HEAD",<br>  "OPTIONS"<br>]<br></pre> | no |
 | cloudfront\_cached\_methods | Controls whether CloudFront caches the response to requests using the specified HTTP methods. | `list(string)` | <pre>[<br>  "GET",<br>  "HEAD"<br>]<br></pre> | no |
-| cloudfront\_custom\_errors | A map of custom error settings for the CloudFront Distribution | <pre>list(object({<br>error_caching_min_ttl = number<br>error_code = number<br>response_code = number<br>response_page_path = string<br>}))<br></pre> | `[]` | no |
+| cloudfront\_custom\_errors | A map of custom error settings for the CloudFront Distribution | <pre>list(object({<br>    error_caching_min_ttl = number<br>    error_code            = number<br>    response_code         = number<br>    response_page_path    = string<br>  }))<br></pre> | `[]` | no |
 | cloudfront\_tags | Additional tags to be added to all cloudfront resources. | `map(any)` | `{}` | no |
 | comment | A comment for the Cloudfront distribution resource | `string` | `""` | no |
 | cors\_allowed\_methods | Specifies which methods are allowed. Can be GET, PUT, POST, DELETE or HEAD. Defaults to `GET`, `PUT`, `POST`. | `list(string)` | <pre>[<br>  "GET",<br>  "PUT",<br>  "POST"<br>]<br></pre> | no |
@@ -89,7 +89,7 @@ All contributions are accepted, details on how to contribute can be found in [co
 |------|-------------|
 | cloudfront\_hosted\_zone | The hosted zone id of the Cloudfront Distribution |
 | cloudfront\_url | The URL for the Cloudfront Distribution - used to set the alias for the custom domain. |
+| s3\_bucket\_domain\_name | The regional domain of the s3 web site bucket. |
 | s3\_bucket\_hosted\_id | The hosted\_id s3 web site bucket. |
-| s3\_bucket\_website\_domain | The domain of the s3 web site bucket. |
 | s3\_bucket\_website\_endpoint | The endpoint of the s3 web site bucket. |
 
