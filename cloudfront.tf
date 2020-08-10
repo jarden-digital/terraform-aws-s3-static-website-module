@@ -42,6 +42,49 @@ resource "aws_cloudfront_distribution" "cdn" {
     max_ttl                = var.max_ttl
   }
 
+  ordered_cache_behavior {
+    allowed_methods        = ["GET", "HEAD" ]
+    cached_methods         = ["GET", "HEAD"]
+    compress               = true
+    default_ttl            = 0
+    max_ttl                = 0
+    min_ttl                = 0
+    path_pattern           = "index.html"
+    smooth_streaming       = false
+    target_origin_id       = aws_s3_bucket.static_website.id
+    viewer_protocol_policy = "redirect-to-https"
+
+    forwarded_values {
+        query_string = false
+
+    cookies {
+        forward = "none"
+      }
+    }
+  }
+
+  ordered_cache_behavior {
+    allowed_methods        = ["GET", "HEAD" ]
+    cached_methods         = ["GET", "HEAD"]
+    compress               = true
+    default_ttl            = 0
+    max_ttl                = 0
+    min_ttl                = 0
+    path_pattern           = "config.json"
+    smooth_streaming       = false
+    target_origin_id       = aws_s3_bucket.static_website.id
+    viewer_protocol_policy = "redirect-to-https"
+
+    forwarded_values {
+        query_string = false
+
+    cookies {
+        forward = "none"
+      }
+    }
+  }
+
+
   price_class = var.price_class
 
   restrictions {
