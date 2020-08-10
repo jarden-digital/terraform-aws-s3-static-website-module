@@ -1,7 +1,7 @@
 resource "aws_cloudfront_distribution" "cdn" {
   origin {
     origin_id   = aws_s3_bucket.static_website.id
-    domain_name = aws_s3_bucket.static_website.bucket_domain_name
+    domain_name = aws_s3_bucket.static_website.bucket_regional_domain_name
   }
 
   aliases             = [var.url]
