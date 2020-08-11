@@ -49,7 +49,7 @@ resource "aws_cloudfront_distribution" "cdn" {
     default_ttl            = 0
     max_ttl                = 0
     min_ttl                = 0
-    path_pattern           = "index.html"
+    path_pattern           = var.index_document_default
     smooth_streaming       = false
     target_origin_id       = aws_s3_bucket.static_website.id
     viewer_protocol_policy = "redirect-to-https"
