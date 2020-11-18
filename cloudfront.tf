@@ -1,8 +1,17 @@
 resource "aws_cloudfront_distribution" "cdn" {
   origin {
     origin_id   = aws_s3_bucket.static_website.id
-    domain_name = aws_s3_bucket.static_website.bucket_regional_domain_name
+    domain_name = aws_s3_bucket.static_website.website_endpoint
+
+    custom_origin_config {
+      http_port              = "80"
+      https_port             = "443"
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
+    }
   }
+
+
 
   aliases             = [var.url]
   wait_for_deployment = var.wait_for_deployment

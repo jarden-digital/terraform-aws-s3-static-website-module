@@ -16,6 +16,12 @@ variable "error_document_default" {
   default     = "error.html"
 }
 
+variable "redirect_url" {
+  description = "A hostname to redirect all website requests for this bucket to. Hostname can optionally be prefixed with a protocol (`http://` or `https://`) to use when redirecting requests. The default is the protocol that is used in the original request. If set will override the `index_document_default` variable"
+  type        = string
+  default     = ""
+}
+
 variable "cors_allowed_origins" {
   description = "A list of allowed CORS origins."
   type        = list(string)

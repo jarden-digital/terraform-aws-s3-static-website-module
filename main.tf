@@ -9,9 +9,22 @@ resource "aws_s3_bucket" "static_website" {
   policy        = data.aws_iam_policy_document.s3_website_public_get.json
   force_destroy = true
 
-  website {
-    index_document = var.index_document_default
-    error_document = var.error_document_default
+  //Set the website data block based on the redirect_url variable being set
+  dynamic website {
+    for_each = length(var.redirect_url) > 0 ? [1] : []
+    content {
+      redirect_all_requests_to = var.redirect_url
+    }
+  }
+
+  dynamic website {
+    for_each = length(var.redirect_url) > 0 ? [] : [1]
+    content {
+      index_document           = var.index_document_default
+      error_document           = var.error_document_default
+    }
+
+
   }
 
   cors_rule {
