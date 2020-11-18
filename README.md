@@ -78,6 +78,7 @@ All contributions are accepted, details on how to contribute can be found in [co
 | min\_ttl | The minimum amount of time that you want objects to stay in CloudFront caches before CloudFront queries your origin to see whether the object has been updated. Defaults to 0 seconds. | `number` | `0` | no |
 | module\_tags | Additional tags that are added to all resources in this module. | `map(any)` | `{}` | no |
 | price\_class | The price class for this distribution. One of `PriceClass_All`, `PriceClass_200`, `PriceClass_100`. | `string` | `"PriceClass_All"` | no |
+| redirect\_url | A hostname to redirect all website requests for this bucket to. Hostname can optionally be prefixed with a protocol (`http://` or `https://`) to use when redirecting requests. The default is the protocol that is used in the original request. If set will override the `index_document_default` variable | `string` | `""` | no |
 | s3\_tags | Additional tags to be added to all s3 resources. | `map(any)` | `{}` | no |
 | site\_config\_values | A map of js bundle configuration values required for a specific environment. | `map(any)` | `{}` | no |
 | wait\_for\_deployment | If enabled, the resource will wait for the distribution status to change from `InProgress` to `Deployed`. Setting this to `false` will skip the process. Default: `true`. | `bool` | `true` | no |
