@@ -8,5 +8,5 @@ resource "aws_s3_bucket" "artifactory" {
 
   force_destroy = var.force_destroy
 
-  tags = merge(map("Name", local.bucket_name), map("Site Name", var.site_name), var.tags)
+  tags = merge({ "Name" = local.bucket_name, "Site Name" = var.site_name }, var.tags)
 }

@@ -115,5 +115,5 @@ resource "aws_cloudfront_distribution" "cdn" {
     prefix = "cloudfront/"
   }
 
-  tags = merge(map("Name", format("%s-cdn", var.site_name)), map("Site Name", var.site_name), var.cloudfront_tags, var.module_tags)
+  tags = merge({ "Name" = format("%s-cdn", var.site_name), "Site Name" = var.site_name }, var.cloudfront_tags, var.module_tags)
 }

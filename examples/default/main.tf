@@ -28,9 +28,9 @@ module "static_website_example" {
   cors_allowed_origins = ["*"]
   cors_allowed_headers = [""]
 
-  module_tags     = merge(map("Environment", "test"), map("env", "test"))
-  s3_tags         = map("s3-example", "true")
-  cloudfront_tags = map("cloudfront-example", "true")
+  module_tags     = { "Environment" = "test", "env" = "test" }
+  s3_tags         = { "s3-example" = "true" }
+  cloudfront_tags = { "cloudfront-example" = "true" }
 
   wait_for_deployment = false
 

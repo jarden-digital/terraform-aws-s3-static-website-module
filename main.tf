@@ -20,8 +20,8 @@ resource "aws_s3_bucket" "static_website" {
   dynamic website {
     for_each = length(var.redirect_url) > 0 ? [] : [1]
     content {
-      index_document           = var.index_document_default
-      error_document           = var.error_document_default
+      index_document = var.index_document_default
+      error_document = var.error_document_default
     }
 
 
@@ -40,14 +40,14 @@ resource "aws_s3_bucket" "static_website" {
     target_prefix = format("%s/", var.site_name)
   }
 
-  tags = merge(map("Name", local.bucket_name), map("Site Name", var.site_name), var.s3_tags, var.module_tags)
+  tags = merge({ "Name" = local.bucket_name, "Site Name" = var.site_name }, var.s3_tags, var.module_tags)
 }
 
 resource "aws_s3_bucket" "static_website_log_bucket" {
   bucket = local.logging_bucket_name
   acl    = "log-delivery-write"
 
-  tags = merge(map("Name", local.logging_bucket_name), map("Site Name", var.site_name), var.s3_tags, var.module_tags)
+  tags = merge({ "Name" = local.logging_bucket_name, "Site Name" = var.site_name }, var.s3_tags, var.module_tags)
 }
 
 resource "aws_s3_bucket_object" "config_file" {
@@ -56,5 +56,5 @@ resource "aws_s3_bucket_object" "config_file" {
   content = jsonencode(var.site_config_values)
   acl     = "public-read"
 
-  tags = merge(map("Site Name", var.site_name), var.module_tags)
+  tags = merge({ "Site Name" = var.site_name }, var.module_tags)
 }
