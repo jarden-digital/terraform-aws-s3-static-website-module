@@ -5,7 +5,6 @@ locals {
 
 resource "aws_s3_bucket" "static_website" {
   bucket        = local.bucket_name
-  acl           = "public-read"
   policy        = data.aws_iam_policy_document.s3_website_public_get.json
   force_destroy = true
 
@@ -43,18 +42,30 @@ resource "aws_s3_bucket" "static_website" {
   tags = merge({ "Name" = local.bucket_name, "Site Name" = var.site_name }, var.s3_tags, var.module_tags)
 }
 
+resource "aws_s3_bucket_acl" "static_website" {
+  bucket = aws_s3_bucket.static_website.id
+  acl    = "public-read"
+}
+
 resource "aws_s3_bucket" "static_website_log_bucket" {
   bucket = local.logging_bucket_name
-  acl    = "log-delivery-write"
 
   tags = merge({ "Name" = local.logging_bucket_name, "Site Name" = var.site_name }, var.s3_tags, var.module_tags)
 }
 
-resource "aws_s3_bucket_object" "config_file" {
+resource "aws_s3_bucket_acl" "static_website_log_bucket" {
+  bucket = aws_s3_bucket.static_website_log_bucket.id
+  acl    = "log-delivery-write"
+}
+
+resource "aws_s3_object" "config_file" {
   key     = "config.json"
   bucket  = aws_s3_bucket.static_website.id
   content = jsonencode(var.site_config_values)
   acl     = "public-read"
+
+  content_type  = "application/json"
+  cache_control = var.site_config_cache_control
 
   tags = merge({ "Site Name" = var.site_name }, var.module_tags)
 }

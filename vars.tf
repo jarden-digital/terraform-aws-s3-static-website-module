@@ -56,6 +56,12 @@ variable "site_config_values" {
   default     = {}
 }
 
+variable "site_config_cache_control" {
+  description = "The value of the `Cache-Control` header to be used for the site config file served from S3."
+  type        = string
+  default     = null
+}
+
 variable "url" {
   description = "The custom URL to access the site. Must match the certificate name to provide a valid TLS connection."
 }
@@ -139,18 +145,18 @@ variable "zone_id" {
 
 variable "s3_tags" {
   description = "Additional tags to be added to all s3 resources."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
 variable "cloudfront_tags" {
   description = "Additional tags to be added to all cloudfront resources."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
 variable "module_tags" {
   description = "Additional tags that are added to all resources in this module."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
